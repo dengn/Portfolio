@@ -1,5 +1,6 @@
 package dengn.portfolio;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,23 +27,24 @@ public class MainActivity extends AppCompatActivity {
     @InjectView(R.id.title)
     TextView title;
 
-    @InjectView(R.id.button)
-    Button button;
+    @InjectView(R.id.button_sportify_streamer)
+    Button buttonSportifyStreamer;
 
-    @InjectView(R.id.button2)
-    Button button2;
+    @InjectView(R.id.button_scores_app)
+    Button buttonScoresApp;
 
-    @InjectView(R.id.button3)
-    Button button3;
+    @InjectView(R.id.button_library_app)
+    Button buttonLibraryApp;
 
-    @InjectView(R.id.button4)
-    Button button4;
+    @InjectView(R.id.button_build_it_bigger)
+    Button buttonBuildItBigger;
 
-    @InjectView(R.id.button5)
-    Button button5;
+    @InjectView(R.id.button_xyz_reader)
+    Button buttonXyzReader;
 
-    @InjectView(R.id.button6)
-    Button button6;
+    @InjectView(R.id.button_my_own_app)
+    Button buttonMyOwnApp;
+
 
 
 
@@ -52,23 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.inject(this);
 
-        setButtonToast(button, TOAST1);
-        setButtonToast(button2, TOAST2);
-        setButtonToast(button3, TOAST3);
-        setButtonToast(button4, TOAST4);
-        setButtonToast(button5, TOAST5);
-        setButtonToast(button6, TOAST6);
-//        setButtonSnackbar(button, TOAST1);
-//        setButtonSnackbar(button2, TOAST2);
-//        setButtonSnackbar(button3, TOAST3);
-//        setButtonSnackbar(button4, TOAST4);
-//        setButtonSnackbar(button5, TOAST5);
-//        setButtonSnackbar(button6, TOAST6);
 
 
     }
 
-    private void setButtonToast(Button button, final String string){
+
+    private void setButtonToast(Button button, final String string) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,13 +69,36 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setButtonSnackbar(Button button, final String string){
+    private void setButtonSnackbar(Button button, final String string) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Snackbar.make(v, string, Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
+    }
+
+    @OnClick({
+            R.id.button_sportify_streamer,
+            R.id.button_scores_app,
+            R.id.button_library_app,
+            R.id.button_build_it_bigger,
+            R.id.button_xyz_reader,
+            R.id.button_my_own_app
+            })
+    public void onAnyButtonClick(View view){
+        Button button = (Button) view;
+
+        String buttonText = (String) button.getText();
+
+        Context context = getApplicationContext();
+        // open_app would add "Opens the app "
+        CharSequence text = getString(R.string.open_app)
+                + buttonText;
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     @Override
